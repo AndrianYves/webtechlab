@@ -1,45 +1,46 @@
 <?php include 'inc/header.php'; ?>
 <body>
       <?php include 'inc/navbar.php'; ?>
-    <!-- breadcrumb start-->
-    <section class="breadcrumb breadcrumb_bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb_iner text-center">
-                        <div class="breadcrumb_iner_item">
-                            <h2>Announcements</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- breadcrumb start-->
- 
- <div class="element_page black">
-        <!-- Start Sample Area -->
-                          <?php
+
+ <main class="mt-5 pt-5">
+    <div class="container">
+
+
+      <!--Section: Cards-->
+      <section class="pt-5">
+
+                    <?php
                   $sql = mysqli_query($db, "SELECT * FROM post where status = 'Active'");
                   while ($row = mysqli_fetch_array($sql)) {
                         ?>
-                        <div class="section-top-border">
-                            <h3 class="mb-30"><?php echo $row['title'];?></h3>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="single-defination">
-                                        <h4 class="mb-20"><?php echo $row['content'];?></h4>
-                                        <p><?php echo $row['date'];?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
 
-                <?php   } ?>
-                
 
-            </div>
-                  
+          <!--Grid column-->
+          <div class="col-lg-12 mb-4">
+            <h3 class="mb-3 font-weight-bold dark-grey-text">
+              <strong><?php echo $row['title'];?></strong>
+            </h3>
+            <p class="grey-text"><?php echo $row['content'];?></p>
+            <p>
+              <strong><?php echo $row['date'];?></strong>
+            </p>
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+                <hr class="mb-5">
+               <?php   } ?>
+            
+
+      </section>
+      <!--Section: Cards-->
+
+    </div>
+  </main>
+  <!--Main layout-->
   <?php include 'inc/footer.php'; ?>
 
 

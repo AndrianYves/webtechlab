@@ -1,5 +1,4 @@
 <?php
-  session_start();
   include 'inc/db.php';
  if (isset($_POST['submit'])) {
   $fname=$_POST['firstname'];
@@ -21,7 +20,9 @@
 ?>
 <?php include 'inc/header.php'; ?>
 <body>
-    <div class="body_bg">
+  <?php include 'inc/navbar.php'; ?>
+  <main class="mt-5 pt-5">
+    <div class="container">
 
   <!-- ================ contact section start ================= -->
   <section class="contact-section section_padding">
@@ -79,9 +80,10 @@
     </div>
   </section>
   <!-- ================ contact section end ================= -->
-
-  <?php include 'inc/footer.php'; ?>
     </div>
+  </main>
+  <?php include 'inc/footer.php'; ?>
+
 
 
 <?php include 'inc/scripts.php'; ?>

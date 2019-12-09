@@ -1,5 +1,5 @@
 <?php
-  session_start();
+session_start();
   include 'inc/db.php';
   if(isset($_POST['login'])){
     $idnumber = $_POST['idnumber'];
@@ -14,7 +14,7 @@
     else{
       $row = $query->fetch_assoc();
       if(password_verify($password, $row['password'])){
-        if($row['status'] == 'Rejected') {
+        if(empty($row['status'])) {
           header('location: invalid.php');
         } else {
           $_SESSION['users'] = $row['idnumber'];
@@ -29,47 +29,99 @@
  
 
 ?>
-<?php include 'inc/header.php'; ?>
-<body>
-    <div class="body_bg">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <!-- ================ contact section start ================= -->
-  <section class="contact-section section_padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="contact-title">Login</h2>
-        </div>
-        <div class="col-lg-12">
-          <form class="form-contact contact_form" action="login.php" method="post" id="contactForm"
-            novalidate="novalidate">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <input class="form-control" name="idnumber" id="ID Number" type="text" onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter your ID Number'" placeholder='Enter your ID Number'>
-                </div>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.min.css" rel="stylesheet">
+    <title>Login Page</title>
+  </head>
+  <body>
+
+    <!-- Main navigation -->
+    <header>
+    <!-- Mask & flexbox options-->
+    <div class="justify-content-center align-items-center">
+      <!-- Content -->
+      <div class="container" style="margin-top: 100px;">
+        <!--Grid row-->
+        <div class="row pt-lg-3 mt-lg-3">
+          <!--Grid column-->
+          <div class="col-md-6 mb-5 mt-md-0 mt-5 black-text text-center text-md-left wow fadeInLeft"
+            data-wow-delay="0.3s">
+            <h1 class="h1-responsive font-weight-bold">OrgIT</h1>
+            <hr class="hr-light">
+            <h6 class="mb-3">About...</h6>
+          </div>
+          <!--Grid column-->
+          <!--Grid column-->
+          <div class="col-md-6 col-xl-5 mb-4">
+            <!--Form-->
+            <div class="card wow fadeInRight" data-wow-delay="0.3s">
+              <div class="card-body z-depth-2">
+                <!--Header-->
+                <div class="text-center">
+               
               </div>
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <input class="form-control" name="password" type="password" onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter password'" placeholder='Enter password'>
+                <div class="text-center">
+                  <h3 class="dark-grey-text">
+                    <strong>Please Login</strong>
+                  </h3>
+                  <hr>
+                </div>
+                <form action="login.php" method="POST" class="p-2">
+                <!--Body-->
+                  <input type="text" id="idnumber" name="idnumber" placeholder="ID Number" class="form-control mb-4" placeholder="ID Number">
+
+                  <!-- Password -->
+                  <input type="password" id="password" name="password" class="form-control mb-4" placeholder="Password">
+                <!--Textarea with icon prefix-->
+                <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-outline-primary wave effects" name="login">Login</button>
+                  <hr>
+                </form>
                 </div>
               </div>
             </div>
-            <div class="form-group mt-3">
-              <button type="submit" class="button-contactForm btn_1" name="login">login </button>
-            </div>
-          </form>
+            <!--/.Form-->
+          </div>
+          <!--Grid column-->
         </div>
+        <!--Grid row-->
       </div>
+      <!-- Content -->
     </div>
-  </section>
-  <!-- ================ contact section end ================= -->
+    <!-- Mask & flexbox options-->
+    </header>
+    <!-- Main navigation -->
 
-  <?php include 'inc/footer.php'; ?>
-    </div>
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
 
+  </script>
+
+  </body>
+</html>
 
 <?php include 'inc/scripts.php'; ?>
 </body>

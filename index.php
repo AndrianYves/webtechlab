@@ -1,29 +1,34 @@
 <?php include 'inc/header.php'; ?>
 <body>
-    <div class="body_bg">
       <?php include 'inc/navbar.php'; ?>
-        <!-- banner part start-->
-        <section class="banner_part">
-            <div class="container">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-lg-6 col-md-8">
-                        <div class="banner_text">
-                            <div class="banner_text_iner">
-                            <?php
+      <!--Main layout-->
+  <main class="mt-5 pt-5">
+    <div class="container">
+
+      <!--Section: Jumbotron-->
+      <section class="card blue-gradient wow fadeIn" id="intro">
+
+        <!-- Content -->
+        <div class="card-body text-white text-center py-5 px-5 my-5">
+            <?php
                             $sql = mysqli_query($db, "SELECT * FROM maincontent");
                             $content = mysqli_fetch_assoc($sql);
                             ?>
-                                <h1><?php echo $content['title'];?></h1>
-                                <p><?php echo $content['content'];?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <h1 class="mb-4">
+            <strong><?php echo $content['title'];?></strong>
+          </h1>
+          <p class="mb-4">
+            <strong><?php echo $content['content'];?>.</strong>
+          </p>
+
+
+        </div>
+        <!-- Content -->
+      </section>
+      <!--Section: Jumbotron-->
+        </main>
         <!-- banner part start-->
   <?php include 'inc/footer.php'; ?>
-    </div>
 
 
 <?php include 'inc/scripts.php'; ?>
