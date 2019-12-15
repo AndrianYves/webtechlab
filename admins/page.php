@@ -4,6 +4,7 @@
   include 'inc/db.php';
  ?>
 <?php
+$link = "Information";
 if(isset($_POST['submit'])){ 
   $title = $_POST["title"];
   $content = $_POST["content"];

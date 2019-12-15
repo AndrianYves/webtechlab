@@ -25,15 +25,15 @@
 
           <!-- Left -->
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item <?php if($link == 'Home') {echo 'active';} ?>">
               <a class="nav-link waves-effect" href="index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?php if($link == 'Announcements') {echo 'active';} ?>">
               <a class="nav-link waves-effect" href="announcements.php">Announcements</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?php if($link == 'Poll') {echo 'active';} ?>">
               <a class="nav-link waves-effect" href="poll.php">Poll</a>
             </li>
           </ul>

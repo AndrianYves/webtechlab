@@ -8,13 +8,20 @@
   $year=$_POST['year'];
   $email=$_POST['email'];
   $pass=$_POST['password'];
+  $confirmpassword=$_POST['confirmpassword'];
   $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-  $sql="INSERT INTO users(firstname, lastname, idnumber, course, year, email, password) VALUES 
+  if ($pass == $confirmpassword) {
+    $sql="INSERT INTO users(firstname, lastname, idnumber, course, year, email, password) VALUES 
   ('$fname', '$lname', '$idnum', '$course', '$year', '$email', '$hashedPassword')";
-
    mysqli_query($db, $sql);
-    echo "<script>alert('Thank You!'); window.location='verifying.php'</script>";
+
+   echo "<script>alert('Registration Successfu;!!!'); window.location='verifying.php'</script>";
+  
+  } else {
+   echo "<script>alert(Password Not Matched!');'</script>";
+  }
+
 }
 
 ?>
@@ -43,6 +50,11 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <input class="form-control" name="password" type="password" placeholder='Enter password'>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <input class="form-control" name="confirmpassword" type="password" placeholder='Confirm password'>
                 </div>
               </div>
               <div class="col-sm-12">

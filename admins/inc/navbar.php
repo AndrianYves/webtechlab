@@ -20,18 +20,28 @@
   </nav>
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
+ <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-gray elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <span class="brand-text font-weight-light">OrgIT</span>
+    </a>
+
     <!-- Sidebar -->
     <div class="sidebar">
-
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="#" class="d-block"><?php echo $user['firstname']. ' '.$user['lastname']; ?></a>
+        </div>
+      </div>
 <?php if($user['role'] == 'super'): ?>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="index.php" class="nav-link">
+            <a href="index.php" class="nav-link <?php if($link == 'Dashboard') {echo 'active';} ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -39,7 +49,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="page.php" class="nav-link">
+            <a href="page.php" class="nav-link <?php if($link == 'Information') {echo 'active';} ?>">
               <i class="nav-icon fas fa-file"></i>
               <p>
                 Page Information
@@ -47,7 +57,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="members.php" class="nav-link">
+            <a href="members.php" class="nav-link <?php if($link == 'Members') {echo 'active';} ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Members
@@ -55,7 +65,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="announcements.php" class="nav-link">
+            <a href="announcements.php" class="nav-link <?php if($link == 'Announcements') {echo 'active';} ?>">
               <i class="nav-icon fas fa-bullhorn"></i>
               <p>
                 Announcements
@@ -63,7 +73,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="poll.php" class="nav-link">
+            <a href="poll.php" class="nav-link <?php if($link == 'Polls') {echo 'active';} ?>">
               <i class="nav-icon fas fa-poll"></i>
               <p>
                 Polls
@@ -71,7 +81,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="users.php" class="nav-link">
+            <a href="users.php" class="nav-link <?php if($link == 'Users') {echo 'active';} ?>">
               <i class="nav-icon fas fa-users-cog"></i>
               <p>
                 Users
@@ -86,7 +96,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="members" data-accordion="false">
           <li class="nav-item">
-            <a href="index.php" class="nav-link">
+            <a href="index.php" class="nav-link <?php if($link == 'Dashboard') {echo 'active';} ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -94,7 +104,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="page.php" class="nav-link">
+            <a href="page.php" class="nav-link <?php if($link == 'Information') {echo 'active';} ?>">
               <i class="nav-icon fas fa-file"></i>
               <p>
                 Page Information
@@ -102,7 +112,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="members.php" class="nav-link">
+            <a href="members.php" class="nav-link <?php if($link == 'Members') {echo 'active';} ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Members
@@ -110,7 +120,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="announcements.php" class="nav-link">
+            <a href="announcements.php" class="nav-link <?php if($link == 'Announcements') {echo 'active';} ?>">
               <i class="nav-icon fas fa-bullhorn"></i>
               <p>
                 Announcements
@@ -118,7 +128,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="poll.php" class="nav-link">
+            <a href="poll.php" class="nav-link <?php if($link == 'Polls') {echo 'active';} ?>">
               <i class="nav-icon fas fa-poll"></i>
               <p>
                 Polls

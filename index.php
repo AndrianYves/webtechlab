@@ -1,4 +1,5 @@
-<?php include 'inc/header.php'; ?>
+<?php include 'inc/header.php'; 
+$link = "Home";?>
 <body>
       <?php include 'inc/navbar.php'; ?>
       <!--Main layout-->

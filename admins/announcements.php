@@ -4,12 +4,16 @@
   include 'inc/db.php';
  ?>
 <?php
+$link = "Announcements";
 if(isset($_POST['submit'])){ 
+  move_uploaded_file($_FILES["image"]["tmp_name"],"image/".$_FILES["image"]["name"]);
+  $image = $_FILES['image']['name'];
+
   $title = $_POST["title"];
   $content = $_POST["content"];
   $date = $_POST["date"];
 
-  $sql = "INSERT INTO post(title, content, date, status) VALUES('$title', '$content', '$date', 'Active')";   
+  $sql = "INSERT INTO post(title, content, date, status, image) VALUES('$title', '$content', '$date', 'Active', '$image')";   
     mysqli_query($db, $sql);
   echo "<script>alert('Post Created!);</script>";
 }
@@ -97,7 +101,7 @@ if(isset($_POST['submit'])){
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-               <form class="form-horizontal" action="announcements.php" method="post" >
+               <form class="form-horizontal" action="announcements.php" method="post" enctype="multipart/form-data">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-9">
@@ -114,6 +118,18 @@ if(isset($_POST['submit'])){
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Date</label>
                     <div class="col-sm-9">
                       <input type="date" class="form-control" name="date" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="image">Upload Image</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="image" id="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                      </div>
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary" name="submit">Create Post</button>

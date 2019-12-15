@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 09, 2019 at 01:56 PM
+-- Generation Time: Dec 15, 2019 at 10:53 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -103,9 +103,9 @@ INSERT INTO `maincontent` (`id`, `title`, `content`) VALUES
 
 DROP TABLE IF EXISTS `pollanswers`;
 CREATE TABLE IF NOT EXISTS `pollanswers` (
-  `questionID` int(255) NOT NULL,
-  `choiceID` int(25) NOT NULL,
-  `userID` int(255) NOT NULL
+  `questionID` int(255) DEFAULT NULL,
+  `choiceID` int(25) DEFAULT NULL,
+  `userID` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
@@ -119,7 +119,8 @@ CREATE TABLE IF NOT EXISTS `pollchoices` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `choice` varchar(255) NOT NULL,
   `questionID` int(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `choice` (`choice`,`questionID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
@@ -132,6 +133,7 @@ DROP TABLE IF EXISTS `pollquestion`;
 CREATE TABLE IF NOT EXISTS `pollquestion` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `question` varchar(255) NOT NULL,
+  `status` enum('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
@@ -148,17 +150,9 @@ CREATE TABLE IF NOT EXISTS `post` (
   `content` longtext NOT NULL,
   `date` varchar(255) NOT NULL,
   `status` enum('Active','Inactive') NOT NULL,
+  `image` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf32;
-
---
--- Dumping data for table `post`
---
-
-INSERT INTO `post` (`id`, `title`, `content`, `date`, `status`) VALUES
-(1, 'fire', 'fire', '2019-1-20', 'Active'),
-(2, 'Water', 'Water', '2019-12-20', 'Inactive'),
-(3, 'Hello', 'World', '2019-12-11', 'Active');
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
 
@@ -176,19 +170,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `year` int(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `status` enum('Rejected','Accepted') NOT NULL,
+  `status` enum('Rejected','Accepted') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idnumber` (`idnumber`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf32;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `idnumber`, `course`, `year`, `email`, `password`, `status`) VALUES
-(1, 'firstname', 'lastname', 123, 'BSIT', 4, '123@gmail.com', '$2y$10$CFqhsh2HbQYMzFvIHwY2/e7vn1P7l9ghbbc4Wy/kYnobLV3VnXfx6', 'Accepted'),
-(5, '321', '321', 321, '312', 321, '321@gmail.com', '$2y$10$cacZR04HWIQufxbqM7PYjO78o1VR2nJhAnwzJjm4QbsyIia5bXq1y', 'Accepted');
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
