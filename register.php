@@ -16,7 +16,7 @@
   ('$fname', '$lname', '$idnum', '$course', '$year', '$email', '$hashedPassword')";
    mysqli_query($db, $sql);
 
-   echo "<script>alert('Registration Successfu;!!!'); window.location='verifying.php'</script>";
+   echo "<script>alert('Registration Successful!!!'); window.location='verifying.php'</script>";
   
   } else {
    echo "<script>alert(Password Not Matched!');'</script>";

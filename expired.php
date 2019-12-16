@@ -13,7 +13,7 @@
         <div class="card-body text-white text-center py-5 px-5 my-5">
 
           <h1 class="mb-4">
-            <strong>Thank you for your Registration, kindly wait for your Activation</strong>
+            <strong>Semester Ends.</strong>
           </h1>
 
 

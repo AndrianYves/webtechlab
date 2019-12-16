@@ -57,10 +57,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="members.php" class="nav-link <?php if($link == 'Members') {echo 'active';} ?>">
-              <i class="nav-icon fas fa-user"></i>
+            <a href="allaccounts.php" class="nav-link <?php if($link == 'Accounts') {echo 'active';} ?>">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Members
+                All Accounts
               </p>
             </a>
           </li>
@@ -81,10 +81,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="users.php" class="nav-link <?php if($link == 'Users') {echo 'active';} ?>">
-              <i class="nav-icon fas fa-users-cog"></i>
+            <a href="semester.php" class="nav-link <?php if($link == 'Semester') {echo 'active';} ?>">
+              <i class="nav-icon fas fa-cog"></i>
               <p>
-                Users
+                Settings
               </p>
             </a>
           </li>

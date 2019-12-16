@@ -1,6 +1,7 @@
 <?php
 session_start();
   include 'inc/db.php';
+  date_default_timezone_set("Asia/Bangkok");
   if(isset($_POST['login'])){
     $idnumber = $_POST['idnumber'];
     $password = $_POST['password'];
@@ -17,8 +18,17 @@ session_start();
         if(empty($row['status'])) {
           header('location: invalid.php');
         } else {
-          $_SESSION['users'] = $row['idnumber'];
-          header('location: index.php');
+            $sql1 = mysqli_query($db, "SELECT * FROM semesterdate");
+            $date = mysqli_fetch_assoc($sql1);
+            $dateend = strtotime($date['semesterend']);
+            $today= strtotime(date('Y-m-d'));
+
+          if($dateend < $today) {
+            header('location: expired.php');
+          } else {
+            $_SESSION['users'] = $row['idnumber'];
+            header('location: index.php');
+          }
         }
       }
       else{

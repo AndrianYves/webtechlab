@@ -6,5 +6,5 @@
 	$dateend = $date['semesterend'];
 
 	$sql1 = mysqli_query($db,"UPDATE users SET status = 'Accepted', endofsem = '$dateend' WHERE id=".$_GET['id']."");
-	header('location: members.php');
+	header('location: allaccounts.php');
 ?>

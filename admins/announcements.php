@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
 
   $title = $_POST["title"];
   $content = $_POST["content"];
-  $date = $_POST["date"];
+  $date = date("Y-m-d H:i:s");
 
   $sql = "INSERT INTO post(title, content, date, status, image) VALUES('$title', '$content', '$date', 'Active', '$image')";   
     mysqli_query($db, $sql);
@@ -111,13 +111,7 @@ if(isset($_POST['submit'])){
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Content</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Content" name="content" required>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Date</label>
-                    <div class="col-sm-9">
-                      <input type="date" class="form-control" name="date" required>
+                     <textarea class="form-control" rows="3" placeholder="Content" name="content" required></textarea>
                     </div>
                   </div>
                   <div class="form-group">

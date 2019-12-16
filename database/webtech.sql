@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 15, 2019 at 10:53 PM
+-- Generation Time: Dec 16, 2019 at 08:52 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -86,14 +86,7 @@ CREATE TABLE IF NOT EXISTS `maincontent` (
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf32;
-
---
--- Dumping data for table `maincontent`
---
-
-INSERT INTO `maincontent` (`id`, `title`, `content`) VALUES
-(1, '123', '312');
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
 
@@ -105,7 +98,8 @@ DROP TABLE IF EXISTS `pollanswers`;
 CREATE TABLE IF NOT EXISTS `pollanswers` (
   `questionID` int(255) DEFAULT NULL,
   `choiceID` int(25) DEFAULT NULL,
-  `userID` int(255) DEFAULT NULL
+  `userID` int(255) DEFAULT NULL,
+  UNIQUE KEY `questionID` (`questionID`,`userID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
@@ -157,6 +151,26 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `semesterdate`
+--
+
+DROP TABLE IF EXISTS `semesterdate`;
+CREATE TABLE IF NOT EXISTS `semesterdate` (
+  `id` int(255) NOT NULL,
+  `semesterstart` varchar(255) NOT NULL,
+  `semesterend` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+--
+-- Dumping data for table `semesterdate`
+--
+
+INSERT INTO `semesterdate` (`id`, `semesterstart`, `semesterend`) VALUES
+(1, '2019-09-01', '2020-02-29');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -171,6 +185,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `status` enum('Rejected','Accepted') DEFAULT NULL,
+  `endofsem` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idnumber` (`idnumber`),
   UNIQUE KEY `email` (`email`)

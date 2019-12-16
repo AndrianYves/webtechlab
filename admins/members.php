@@ -89,7 +89,7 @@ $link = "Members";
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  All Members
+                  All Accepted Members
                 </div>
               </div>
               <!-- /.card-header -->
@@ -106,7 +106,7 @@ $link = "Members";
                   </thead>
                   <tbody>
                   <?php
-                  $sql = mysqli_query($db, "SELECT * FROM users where status is not NULL");
+                  $sql = mysqli_query($db, "SELECT * FROM users where status = 'Accepted'");
                   while ($row = mysqli_fetch_array($sql)) {
                         ?>
                   <tr>

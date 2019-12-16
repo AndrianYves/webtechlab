@@ -10,7 +10,9 @@
 
         <!-- Content -->
         <div class="card-body text-white text-center py-5 px-5 my-5">
-           Your accoun is not yet Activated by the Administrator. Kindly wait for your Activation
+           <h1 class="mb-4">
+            <strong>Your account is not yet Activated by the Administrator. Kindly wait for your Activation</strong>
+          </h1>
 
         </div>
         <!-- Content -->
