@@ -1,6 +1,7 @@
 <?php include 'inc/db.php'; ?>
 <?php
-  $sql = mysqli_query($db, "DELETE FROM pollchoices WHERE id=".$_GET['id']."");
-  $sql2 = mysqli_query($db, "DELETE FROM pollquestion WHERE id=".$_GET['id']."");
+session_start();
+  $sql = mysqli_query($db,"UPDATE pollquestion SET status = 'Inactive' WHERE id=".$_GET['id']."");
+  $_SESSION['success'] = 'Question Inactive';
   header('location: poll.php');
 ?>

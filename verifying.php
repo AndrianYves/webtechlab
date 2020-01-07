@@ -1,8 +1,9 @@
-<?php include 'inc/header.php'; ?>
+<?php 
+include 'inc/header.php'; 
+ ?>
 <body>
   
       <?php include 'inc/navbar.php'; ?>
-
   <main class="mt-5 pt-5">
     <div class="container">
 
@@ -13,7 +14,7 @@
         <div class="card-body text-white text-center py-5 px-5 my-5">
 
           <h1 class="mb-4">
-            <strong>Thank you for your Registration, kindly wait for your Activation</strong>
+            <strong>Thank you, kindly wait for your Activation</strong>
           </h1>
 
 

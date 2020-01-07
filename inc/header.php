@@ -14,6 +14,8 @@
   <link href="css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="css/style.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 </head>
   <style>
     * {

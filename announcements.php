@@ -1,4 +1,5 @@
 <?php include 'inc/header.php'; 
+ include 'inc/session.php';
 $link = "Announcements";
 ?>
 <body>
@@ -12,9 +13,29 @@ $link = "Announcements";
       <section class="pt-5">
 
                <?php
-                  $sql = mysqli_query($db, "SELECT * FROM post where status = 'Active'");
+                  $sql = mysqli_query($db, "SELECT * FROM post where status = 'Active' ORDER BY date DESC");
                   while ($row = mysqli_fetch_array($sql)) {
                         ?>
+        <?php if(empty($row['image'])): ?>
+         <div class="row wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+
+          <!--Grid column-->
+          <div class="col-lg-12 col-xl-7 ml-xl-4 mb-4">
+            <h3 class="mb-3 font-weight-bold dark-grey-text">
+              <strong><?php echo ucfirst($row['title']);?></strong>
+            </h3>
+            <p class="grey-text"><?php echo ucfirst($row['content']);?></p>
+            <p>
+              <strong><?php echo $row['date'];?></strong>
+            </p>
+            </a>
+          </div>
+          <!--Grid column-->
+
+        </div>
+
+        <hr class="mb-5">
+         <?php else: ?>
         <div class="row wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
 
           <!--Grid column-->
@@ -42,7 +63,8 @@ $link = "Announcements";
           <!--Grid column-->
 
         </div>
-        <hr class="mb-5">
+                <hr class="mb-5">
+           <?php endif ?>
                        <?php   } ?>
       </section>
       <!--Section: Cards-->

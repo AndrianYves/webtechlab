@@ -16,6 +16,8 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+
 </head>
 <style type="text/css">
   p, h1, h2, h3, h4, h5, h6, label, td, dt, dd{

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 16, 2019 at 08:52 PM
+-- Generation Time: Jan 07, 2020 at 11:39 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -25,6 +25,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `aboutus`
+--
+
+DROP TABLE IF EXISTS `aboutus`;
+CREATE TABLE IF NOT EXISTS `aboutus` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `content` text NOT NULL,
+  `timestamp` timestamp(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf32;
+
+--
+-- Dumping data for table `aboutus`
+--
+
+INSERT INTO `aboutus` (`id`, `title`, `content`, `timestamp`) VALUES
+(3, 'title', 'content', '2020-01-06 03:08:20.000000'),
+(5, 'new', 'new', '2020-01-06 03:08:29.000000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `accounts`
 --
 
@@ -40,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `status` enum('Enabled','Disabled') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `accounts`
@@ -49,7 +72,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 INSERT INTO `accounts` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `role`, `status`) VALUES
 (1, 'super', 'super', 'super', 'super@gmail.com', '$2y$10$CFqhsh2HbQYMzFvIHwY2/e7vn1P7l9ghbbc4Wy/kYnobLV3VnXfx6', 'super', 'Enabled'),
 (2, 'admin', 'admin', 'admin', 'admin@gmail.com', '$2y$10$CFqhsh2HbQYMzFvIHwY2/e7vn1P7l9ghbbc4Wy/kYnobLV3VnXfx6', 'admin', 'Enabled'),
-(3, 'super1super1', 'super1', 'super1', 'super1@gmail.com', '$2y$10$zg1nFxCdNZ1.MK2hiisyiOcVgs8GjvmRfG/NzxsbKkWa2S0KbMGVG', 'super', 'Enabled');
+(3, 'super1super1', 'super1', 'super1', 'super1@gmail.com', '$2y$10$zg1nFxCdNZ1.MK2hiisyiOcVgs8GjvmRfG/NzxsbKkWa2S0KbMGVG', 'super', 'Enabled'),
+(4, 'asd', 'asd', 'asd', 'andrianyvesmacalino@gmail.com', '$2y$10$zS0myBK6wmwFzSP/dZ7Lv.i.YgKBdnJ4W8UIy6d8jp27gqzMobIaS', 'super', 'Enabled');
 
 -- --------------------------------------------------------
 
@@ -65,14 +89,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `image` text NOT NULL,
   `status` enum('Active','Inactive') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf32;
-
---
--- Dumping data for table `content`
---
-
-INSERT INTO `content` (`id`, `title`, `date`, `image`, `status`) VALUES
-(1, 'Water', '2019-01-10', 'about_img.png', 'Active');
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
 
@@ -86,7 +103,14 @@ CREATE TABLE IF NOT EXISTS `maincontent` (
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf32;
+
+--
+-- Dumping data for table `maincontent`
+--
+
+INSERT INTO `maincontent` (`id`, `title`, `content`) VALUES
+(1, 'dsds', 'sdsd');
 
 -- --------------------------------------------------------
 
@@ -127,7 +151,8 @@ DROP TABLE IF EXISTS `pollquestion`;
 CREATE TABLE IF NOT EXISTS `pollquestion` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `question` varchar(255) NOT NULL,
-  `status` enum('Active','Inactive') DEFAULT NULL,
+  `endofdate` varchar(255) DEFAULT NULL,
+  `status` enum('Active','Inactive') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
@@ -146,7 +171,16 @@ CREATE TABLE IF NOT EXISTS `post` (
   `status` enum('Active','Inactive') NOT NULL,
   `image` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf32;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `title`, `content`, `date`, `status`, `image`) VALUES
+(1, 'Welcome', 'Hi', '2020-01-01', 'Active', ''),
+(2, 'low', 'low', '2020-01-01', 'Active', ''),
+(3, 'hello', 'hello', '2020-01-08', 'Active', '');
 
 -- --------------------------------------------------------
 
@@ -166,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `semesterdate` (
 --
 
 INSERT INTO `semesterdate` (`id`, `semesterstart`, `semesterend`) VALUES
-(1, '2019-09-01', '2020-02-29');
+(1, '2019-09-01', '2019-12-31');
 
 -- --------------------------------------------------------
 
@@ -185,11 +219,31 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `status` enum('Rejected','Accepted') DEFAULT NULL,
+  `image` text,
   `endofsem` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idnumber` (`idnumber`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visionmission`
+--
+
+DROP TABLE IF EXISTS `visionmission`;
+CREATE TABLE IF NOT EXISTS `visionmission` (
+  `vision` text NOT NULL,
+  `mission` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+
+--
+-- Dumping data for table `visionmission`
+--
+
+INSERT INTO `visionmission` (`vision`, `mission`) VALUES
+('vision content', 'mission content');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

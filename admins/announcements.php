@@ -11,11 +11,12 @@ if(isset($_POST['submit'])){
 
   $title = $_POST["title"];
   $content = $_POST["content"];
-  $date = date("Y-m-d H:i:s");
+  $date = date("Y-m-d");
 
   $sql = "INSERT INTO post(title, content, date, status, image) VALUES('$title', '$content', '$date', 'Active', '$image')";   
     mysqli_query($db, $sql);
-  echo "<script>alert('Post Created!);</script>";
+
+   $_SESSION['success'] = ''.$title.' Announcement Created';
 }
 ?>
 <body class="hold-transition sidebar-mini">

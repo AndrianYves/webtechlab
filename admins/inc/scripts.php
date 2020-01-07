@@ -14,9 +14,28 @@ $(document).ready(function() {
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="plugins/toastr/toastr.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();
 });
+</script>
+
+<script type="text/javascript">
+  $(function() {  
+    <?php
+     if(isset($_SESSION['success'])){
+      echo "toastr.success('".$_SESSION['success']." ')";
+        unset($_SESSION['success']);
+      }
+
+      if(isset($_SESSION['error'])){
+      echo "toastr.error('".$_SESSION['error']." ')";
+        unset($_SESSION['error']);
+      }
+
+    ?>  
+  });
+
 </script>

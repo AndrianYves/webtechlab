@@ -7,10 +7,28 @@
 $link = "Polls";
 if(isset($_POST['submit'])){ 
   $question = $_POST["question"];
+  $date = $_POST["date"];
 
-  $sql = "INSERT INTO pollquestion(question, status) VALUES('$question', 'Active')";   
+  $sql = "INSERT INTO pollquestion(question, endofdate, status) VALUES('$question', '$date', 'Active')";   
   mysqli_query($db, $sql);
-  echo "<script>alert('Question Created!);</script>";
+
+  $result1 = mysqli_query($db, "SELECT max(id) as lasID from pollquestion");
+  $query = mysqli_fetch_assoc($result1);
+  $quesNumber = $query['lasID'];
+
+  $sql1 = mysqli_query($db, "SELECT * from users where status = 'Accepted'");
+  while ($rows = mysqli_fetch_array($sql1)) { 
+    $sql = "INSERT INTO pollanswers(questionID, userID) VALUES('$quesNumber', '".$rows['id']."')";   
+    mysqli_query($db, $sql);
+  }
+
+  $number = count($_POST["choice"]);
+  for($i=0; $i<$number; $i++) {
+    $sql = "INSERT INTO pollchoices(choice, questionID) VALUES('".$_POST["choice"][$i]."', '$quesNumber')";
+    mysqli_query($db, $sql);
+  }
+
+  $_SESSION['success'] = 'Poll Created';
 }
 
 if(isset($_POST['addchoice'])){ 
@@ -63,6 +81,8 @@ if(isset($_POST['addchoice'])){
                   <thead>
                   <tr>
                     <th width="50">Question</th>
+                    <th width="50">End Date</th>
+                    <th width="50">Status</th>
                     <th width="50">Acion</th>
                   </tr>
                   </thead>
@@ -73,9 +93,11 @@ if(isset($_POST['addchoice'])){
                         ?>
                   <tr>
                     <td><?php echo $row['question'];?></td>
+                    <td><?php echo $row['endofdate'];?></td>
+                    <td><?php echo $row['status'];?></td>
                     <td>
                      <div class="btn-group btn-group-sm">
-                      <a href='questiondelete.php?id=<?php echo $row['id']; ?>' class="btn btn-danger">Delete</a>
+                      <a href='questiondelete.php?id=<?php echo $row['id']; ?>' class="btn btn-danger">Deactivate</a>
                       <a data-toggle="modal" data-target='#view<?php echo $row['id']; ?>' class="btn btn-info btn-sm m-0">View Choices and Total Votes</a>
                      </div>
                     </td>
@@ -91,8 +113,6 @@ if(isset($_POST['addchoice'])){
                         </div>
                         <div class="modal-body">
                             <div class="card-body">
-
-
                               <dl>
                                 <?php
                                   $sql1 = mysqli_query($db, "SELECT * FROM pollchoices where questionID = '".$row['id']."'");
@@ -146,6 +166,29 @@ if(isset($_POST['addchoice'])){
                       <input type="text" class="form-control" placeholder="Question" name="question" required>
                     </div>
                   </div>
+                  <div class="form-group">
+                    <label for="inputEmail3">Add Choices</label>
+                  
+                  <table id="dynamic_field" class="table table-condensed">
+                  <tbody>
+                  <tr>
+                    <td>
+                      <input type="text" class="form-control" name="choice[]" id="choice_1" required>
+                    </td>
+                    <td>
+                    <button type="button" name="add" id="add" class="btn btn-success btn-xs">Add Choice</button>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">End of poll</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" name="date" required>
+                    </div>
+                  </div>
+                </div>
                   <button type="submit" class="btn btn-primary" name="submit">Create Poll</button>
                   </form>
               </div>
@@ -153,41 +196,6 @@ if(isset($_POST['addchoice'])){
             </div><!-- /.card -->
           </div><!-- /.col -->
         </div><!-- /.row -->
-
-         <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-               Add Choices
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-               <form class="form-horizontal" action="poll.php" method="post" >
-                  <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Choose Questions</label>
-                    <div class="col-sm-9">
-                      <select class="form-control" name="question">
-                        <?php $question = mysqli_query($db, "SELECT * from pollquestion");?>
-                        <?php foreach($question as $que): ?>
-                          <option value="<?= $que['id']; ?>"><?= ucfirst($que['question']); ?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Choices</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" name="choice">
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary" name="addchoice">Add Choices</button>
-                  </form>
-              </div>
-              <!-- /.card-body -->
-            </div><!-- /.card -->
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-
 
       </div><!-- /.container-fluid -->
 
@@ -201,6 +209,24 @@ if(isset($_POST['addchoice'])){
 </div>
 <!-- ./wrapper -->
 <?php include 'inc/scripts.php'; ?>
+
+<script>
+$(document).ready(function(){
+  var i=1;
+  $('#add').click(function(){
+    i++;
+    $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" class="form-control" name="choice[]" id="choice_'+i+'" required></td><td><a type="button" name="remove" id="'+i+'" class="btn_remove btn btn-danger btn-xs">DELETE</a></td></tr>');
+  });
+  
+
+  $(document).on('click', '.btn_remove', function(){
+    var button_id = $(this).attr("id"); 
+    $('#row'+button_id+'').remove();
+  });
+  
+});
+
+</script>
 
 </body>
 </html>

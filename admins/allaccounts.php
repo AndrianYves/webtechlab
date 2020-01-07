@@ -16,7 +16,7 @@ if(isset($_POST['submit'])){
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
   $sql = "INSERT INTO accounts(firstname, lastname, username, email, password, role, status) VALUES('$firstname', '$lastname', '$username', '$email', '$hashedPassword', '$role', 'Enabled')";   
   mysqli_query($db, $sql);
-  echo "<script>alert('Account Created!);</script>";
+  $_SESSION['success'] = 'Account Created';
 }
 ?>
 <body class="hold-transition sidebar-mini">
@@ -64,6 +64,7 @@ if(isset($_POST['submit'])){
                     <th width="120">Full Name</th>
                     <th width="200">Email</th>
                     <th width="100">Coure and Year</th>
+                    <th width="100">Last sem Attended</th>
                     <th width="100">Status</th>
                     <th width="100">Action</th>
                   </tr>
@@ -72,12 +73,18 @@ if(isset($_POST['submit'])){
                   <?php
                   $sql = mysqli_query($db, "SELECT * FROM users");
                   while ($row = mysqli_fetch_array($sql)) {
+                    if (empty($row['endofsem'])){
+                      $sem = "Newly Register";
+                    } else {
+                      $sem = $row['endofsem'];
+                    }
                         ?>
                   <tr>
                     <td><?php echo $row['idnumber'];?></td>
                     <td><?php echo $row['lastname'];?>, <?php echo $row['firstname'];?></td>
                     <td><?php echo $row['email'];?></td>
                     <td><?php echo $row['course'];?> - <?php echo $row['year'];?></td>
+                    <td><?php echo $sem;?></td>
                     <td><?php echo $row['status'];?></td>
                     <td>
                        <div class="btn-group btn-group-sm">
@@ -130,8 +137,8 @@ if(isset($_POST['submit'])){
                     <td><?php echo $row['status'];?></td>
                     <td>
                        <div class="btn-group btn-group-sm">
-                        <a href='alladmindisabled.php?id=<?php echo $row['id']; ?>' class="btn btn-danger">Disable</a>
-                        <a href='alladminenabled.php?id=<?php echo $row['id']; ?>' class="btn btn-info">Enable</a>
+                        <a href='alladmindisabled.php?username=<?php echo $row['username']; ?>' class="btn btn-danger">Disable</a>
+                        <a href='alladminenabled.php?username=<?php echo $row['username']; ?>' class="btn btn-info">Enable</a>
                       </div>
 
                     </td>
@@ -156,7 +163,7 @@ if(isset($_POST['submit'])){
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-               <form class="form-horizontal" action="allacounts.php" method="post" >
+               <form class="form-horizontal" action="allaccounts.php" method="post" >
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Username</label>
                     <div class="col-sm-9">
