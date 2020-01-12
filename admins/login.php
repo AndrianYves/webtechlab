@@ -1,38 +1,58 @@
 <?php
-  session_start();
   include 'inc/db.php';
+  session_start();
   
   if(isset($_POST['login'])){
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $sql = "SELECT * FROM accounts WHERE username= '$username'";
-    $query = $db->query($sql);
-
-    if($query->num_rows < 1){
-      echo "<script>alert('Invanlid ID Number/Password');</script>";
+    $error = false;
+    if(empty($_POST['username'])) {
+      $error = true;
+      $_SESSION['error'][] = 'Username is required.';
+    } else if (preg_match("/([%\$#\*]+)/", $_POST['username'])) {
+      $error = true;
+      $_SESSION['error'][] = 'Username entered was not 6 digits long.';
+    } else {
+      $username = $_POST['username'];
     }
-    else{
-      $row = $query->fetch_assoc();
-      if(password_verify($password, $row['password'])){
-         if($row['status'] == 'Disabled') {
-          echo "<script>alert('Your account is deactivated');</script>";
+
+    if(empty($_POST['password'])) {
+      $error = true;
+      $_SESSION['error'][] = 'Password is required.';
+    } else {
+      $password = $_POST['password'];
+    }
+
+    if(!$error){
+      $sql = "SELECT * FROM accounts WHERE username= '$username'";
+      $query = $db->query($sql);
+
+      if($query->num_rows < 1){
+        $_SESSION['error'][] ='Invanlid Username/Password';
+      } else {
+        $row = $query->fetch_assoc();
+        if(password_verify($password, $row['password'])){
+           if($row['status'] == 'Disabled') {
+            $_SESSION['error'][] ='Sorry. Your account has been disabled';
+          } else {
+            $_SESSION['admin'] = $row['username'];
+            header('location: index.php');
+          }
         } else {
-          $_SESSION['admin'] = $row['username'];
-          header('location: index.php');
+          $_SESSION['error'][] ='Invanlid Username/Password';
         }
       }
-      else{
-        echo "<script>alert('Invanlid ID Number/Password');</script>";
-      }
     }
+
+
+
+
+
   } 
 ?>
 <?php include 'inc/header.php'; ?>
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Webtech</b></a>
+    <a><b>Webtech</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -72,8 +92,8 @@
     <!-- /.login-card-body -->
   </div>
 </div>
-<!-- /.login-box -->
-
+<!-- ./wrapper -->
 <?php include 'inc/scripts.php'; ?>
+
 </body>
 </html>

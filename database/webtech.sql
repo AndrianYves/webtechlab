@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2020 at 11:39 PM
+-- Generation Time: Jan 12, 2020 at 11:14 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `status` enum('Enabled','Disabled') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `accounts`
@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `semesterdate` (
 --
 
 INSERT INTO `semesterdate` (`id`, `semesterstart`, `semesterend`) VALUES
-(1, '2019-09-01', '2019-12-31');
+(1, '2019-09-01', '2020-01-31');
 
 -- --------------------------------------------------------
 
@@ -218,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `year` int(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `status` enum('Rejected','Accepted') DEFAULT NULL,
+  `status` enum('Rejected','Accepted','Renewing') DEFAULT NULL,
   `image` text,
   `endofsem` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),

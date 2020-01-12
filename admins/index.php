@@ -46,6 +46,7 @@ include 'inc/navbar.php'; ?>
               <div class="icon">
                 <i class="nav-icon fas fa-user"></i>
               </div>
+              <a href="allaccounts.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -65,6 +66,7 @@ include 'inc/navbar.php'; ?>
               <div class="icon">
                 <i class="nav-icon fas fa-bullhorn"></i>
               </div>
+              <a href="announcements.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -84,6 +86,7 @@ include 'inc/navbar.php'; ?>
               <div class="icon">
                 <i class="nav-icon fas fa-poll"></i>
               </div>
+              <a href="poll.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -103,6 +106,7 @@ include 'inc/navbar.php'; ?>
               <div class="icon">
                 <i class="nav-icon fas fa-users-cog"></i>
               </div>
+              <a href="allaccounts.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 

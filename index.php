@@ -117,6 +117,8 @@ $error = false;
       if(password_verify($password, $row['password'])){
         if(empty($row['status'])) {
           $_SESSION['error'][] = 'Your account is not yet activated by the administrator.';
+        } elseif($row['status'] == 'Rejected') {
+            $_SESSION['error'][] ='Sorry. Your account has been Rejected.';
         } else {
             $sql1 = mysqli_query($db, "SELECT * FROM semesterdate");
             $date = mysqli_fetch_assoc($sql1);
@@ -124,7 +126,7 @@ $error = false;
             $today= strtotime(date('Y-m-d'));
 
           if($dateend < $today) {
-            $_SESSION['users'] = $row['idnumber'];
+            $_SESSION['renewing'] = $row['idnumber'];
             header('location: expired.php');
           } else {
             if(!$error){
@@ -251,42 +253,42 @@ $error = false;
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <input class="form-control" name="idnumber" id="ID Number" type="text" placeholder='Enter your ID Number'>
+                    <input required class="form-control" name="idnumber" id="ID Number" type="text" placeholder='Enter your ID Number'>
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <input class="form-control" name="email" type="text" placeholder='Enter Email'>
+                    <input required class="form-control" name="email" type="text" placeholder='Enter Email'>
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <input class="form-control" name="password" type="password" placeholder='Enter password'>
+                    <input required class="form-control" name="password" type="password" placeholder='Enter password'>
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <input class="form-control" name="confirmpassword" type="password" placeholder='Confirm password'>
+                    <input required class="form-control" name="confirmpassword" type="password" placeholder='Confirm password'>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" name="firstname" type="text" placeholder='Enter Firstname'>
+                    <input required class="form-control" name="firstname" type="text" placeholder='Enter Firstname'>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" name="lastname" type="text" placeholder='Enter Lastname'>
+                    <input required class="form-control" name="lastname" type="text" placeholder='Enter Lastname'>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" name="course" type="text" placeholder='Enter Course'>
+                    <input required class="form-control" name="course" type="text" placeholder='Enter Course'>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" name="year" type="number" placeholder='Enter Year'>
+                    <input required class="form-control" name="year" type="number" placeholder='Enter Year'>
                   </div>
                 </div>
               </div>

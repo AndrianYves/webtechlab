@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
 
   $sql = "UPDATE semesterdate SET semesterStart = '$datestart', semesterend = '$dateend'"; 
   mysqli_query($db, $sql);
-  echo "<script>alert('Date Updated!);</script>";
+  $_SESSION['success'] = 'Semester Updates';
 }
 ?>
 <body class="hold-transition sidebar-mini">
@@ -20,6 +20,7 @@ if(isset($_POST['submit'])){
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+        <?php if ($user == 'super'): ?>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -84,6 +85,10 @@ if(isset($_POST['submit'])){
   </div>
   <!-- /.content-wrapper -->
   <!-- Main Footer -->
+    <?php else: ?>
+    <?php include 'forbidden.php'; ?>
+  <?php endif ?>
+
   <?php include 'inc/footer.php'; ?>
 
 </div>

@@ -30,16 +30,6 @@ if(isset($_POST['submit'])){
 
   $_SESSION['success'] = 'Poll Created';
 }
-
-if(isset($_POST['addchoice'])){ 
-  $question = $_POST["question"];
-  $choice = $_POST["choice"];
-
-  $sql = "INSERT INTO pollchoices(choice, questionID) VALUES('$choice', '$question')";   
-  mysqli_query($db, $sql);
-  echo mysqli_error($db);
-  echo "<script>alert('Question Created!);</script>";
-}
 ?>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">

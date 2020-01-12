@@ -6,9 +6,9 @@
   session_start();?>
 
 <?php  
-  if(isset($_SESSION['users'])){
+  if(isset($_SESSION['renewing'])){
     if(isset($_POST['renew'])){
-      $sql = mysqli_query($db,"UPDATE users SET status = NULL WHERE `idnumber` = '".$_SESSION['users']."'");
+      $sql = mysqli_query($db,"UPDATE users SET status = 'Renewing' WHERE `idnumber` = '".$_SESSION['renewing']."'");
       session_destroy();
       header('location: verifying.php');
     }

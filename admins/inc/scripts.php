@@ -22,20 +22,25 @@ $(document).ready(function () {
 });
 </script>
 
-<script type="text/javascript">
-  $(function() {  
-    <?php
-     if(isset($_SESSION['success'])){
-      echo "toastr.success('".$_SESSION['success']." ')";
-        unset($_SESSION['success']);
-      }
+  <script type="text/javascript">
+    $(function() {  
+      <?php
+       if(isset($_SESSION['success'])){
+        echo "toastr.success('".$_SESSION['success']." ')";
+          unset($_SESSION['success']);
+        }
 
-      if(isset($_SESSION['error'])){
-      echo "toastr.error('".$_SESSION['error']." ')";
-        unset($_SESSION['error']);
-      }
+      ?>  
+    });
 
-    ?>  
-  });
-
-</script>
+  </script>
+  <?php
+    if(isset($_SESSION['error'])){
+      foreach($_SESSION['error'] as $error) {
+        echo "<script type='text/javascript'>
+                $(function() { 
+               toastr.error('".$error."');});</script>";
+        }
+      unset($_SESSION['error']);
+    }
+  ?> 

@@ -6,8 +6,7 @@
 	if(isset($_SESSION['admin'])){
 		$sql = mysqli_query($db, "SELECT * FROM accounts where `username` = '".$_SESSION['admin']."'");
 		$user = mysqli_fetch_assoc($sql);
-	}
-	else{
+	} else {
 		header('location: login.php');
 		exit();
 	}
