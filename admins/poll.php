@@ -6,29 +6,38 @@
 <?php
 $link = "Polls";
 if(isset($_POST['submit'])){ 
+  $error = false;
   $question = $_POST["question"];
   $date = $_POST["date"];
 
-  $sql = "INSERT INTO pollquestion(question, endofdate, status) VALUES('$question', '$date', 'Active')";   
-  mysqli_query($db, $sql);
-
-  $result1 = mysqli_query($db, "SELECT max(id) as lasID from pollquestion");
-  $query = mysqli_fetch_assoc($result1);
-  $quesNumber = $query['lasID'];
-
-  $sql1 = mysqli_query($db, "SELECT * from users where status = 'Accepted'");
-  while ($rows = mysqli_fetch_array($sql1)) { 
-    $sql = "INSERT INTO pollanswers(questionID, userID) VALUES('$quesNumber', '".$rows['id']."')";   
-    mysqli_query($db, $sql);
-  }
-
   $number = count($_POST["choice"]);
-  for($i=0; $i<$number; $i++) {
-    $sql = "INSERT INTO pollchoices(choice, questionID) VALUES('".$_POST["choice"][$i]."', '$quesNumber')";
+  if($number > 1) {
+    $sql = "INSERT INTO pollquestion(question, endofdate, status) VALUES('$question', '$date', 'Active')";   
     mysqli_query($db, $sql);
+
+    $result1 = mysqli_query($db, "SELECT max(id) as lasID from pollquestion");
+    $query = mysqli_fetch_assoc($result1);
+    $quesNumber = $query['lasID'];
+
+    $sql1 = mysqli_query($db, "SELECT * from users where status = 'Accepted'");
+    while ($rows = mysqli_fetch_array($sql1)) { 
+      $sql1 = "INSERT INTO pollanswers(questionID, userID) VALUES('$quesNumber', '".$rows['id']."')";   
+      mysqli_query($db, $sql1);
+    }
+
+    for($i=0; $i<$number; $i++) {
+      $sql2 = "INSERT INTO pollchoices(choice, questionID) VALUES('".$_POST["choice"][$i]."', '$quesNumber')";
+    }
+  } else {
+    $error = true;
+    $_SESSION['error'][] = '2 or more choices are required.';
   }
 
-  $_SESSION['success'] = 'Poll Created';
+  if(!$error){
+    mysqli_query($db, $sql2);
+    $_SESSION['success'] = 'Poll Created';
+  }
+
 }
 ?>
 <body class="hold-transition sidebar-mini">

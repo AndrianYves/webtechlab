@@ -85,9 +85,20 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            <li class="nav-item <?php if($link == 'Activities') {echo 'active';} ?>">
+              <a class="nav-link waves-effect" href="activities.php">Activities<?php
+                $sql1 = mysqli_query($db, " SELECT count(*) as counted from activities where DATEDIFF('".$today."', deadline) < '3'");
+                 $row2 = mysqli_fetch_assoc($sql1);
+                 $count = $row2['counted'];
+                 if ($count > '0'){
+                  echo '<span class="badge red z-depth-1 mr-1">'.$count.'</span>';
+                 }
+                ?> </a>
+              
+            </li>
             <li class="nav-item <?php if($link == 'Announcements') {echo 'active';} ?>">
               <a class="nav-link waves-effect" href="announcements.php">Announcements<?php
-                $sql1 = mysqli_query($db, " SELECT count(*) as counted from post where DATEDIFF('".$today."', date) < '3';  ");
+                $sql1 = mysqli_query($db, " SELECT count(*) as counted from post where DATEDIFF('".$today."', date) < '3'");
                  $row2 = mysqli_fetch_assoc($sql1);
                  $count = $row2['counted'];
                  if ($count > '0'){

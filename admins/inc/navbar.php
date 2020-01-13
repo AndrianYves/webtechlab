@@ -65,6 +65,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="activities.php" class="nav-link <?php if($link == 'Activities') {echo 'active';} ?>">
+              <i class="nav-icon fas fa-calendar-plus"></i>
+              <p>
+                Activities
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="announcements.php" class="nav-link <?php if($link == 'Announcements') {echo 'active';} ?>">
               <i class="nav-icon fas fa-bullhorn"></i>
               <p>
@@ -116,6 +124,14 @@
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Members
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="activities.php" class="nav-link <?php if($link == 'Activities') {echo 'active';} ?>">
+              <i class="nav-icon fas fa-calendar-plus"></i>
+              <p>
+                Activities
               </p>
             </a>
           </li>

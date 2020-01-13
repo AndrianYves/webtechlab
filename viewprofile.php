@@ -8,6 +8,8 @@ $link = "Profile";
       <!--Main layout-->
   <main class="mt-5 pt-2">
     <div class="container mt-2">
+
+      <div class="row">
       <div class="pt-5 col-lg-4 col-md-12 mb-4">
         <div class="card">
           <!--Card image-->
@@ -33,7 +35,12 @@ $link = "Profile";
           </div>
         </div>
       </div>
+
+
     </div>
+    </div>
+
+   
 
     <!-- Change Password -->
     <div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -147,5 +154,24 @@ $link = "Profile";
        
 <?php include 'inc/footer.php'; ?>
 <?php include 'inc/scripts.php'; ?>
+
+<script>
+$(document).ready(function(){
+  var i=1;
+  $('#add').click(function(){
+    i++;
+    $('#dynamic_field').append('<tr id="row'+i+'"><td><select class="browser-default custom-select" name="members[]" id="members_'+i+'"><?php $result = mysqli_query($db, "SELECT * from users where id != '".$user['id']."'");?><?php foreach($result as $user): ?><option value="<?= $user['id']; ?>"><?= ucwords($user['lastname']); ?>, <?= ucwords($user['firstname']); ?></option><?php endforeach; ?></select></td><td><a type="button" name="remove" id="'+i+'" class="btn_remove btn btn-danger btn-xs">DELETE</a></td></tr>');
+  });
+  
+
+  $(document).on('click', '.btn_remove', function(){
+    var button_id = $(this).attr("id"); 
+    $('#row'+button_id+'').remove();
+  });
+  
+});
+
+</script>
+
 </body>
 </html>
