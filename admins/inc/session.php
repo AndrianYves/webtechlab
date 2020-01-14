@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'inc/db.php';;
+	require_once 'inc/db.php';;
 	date_default_timezone_set("Asia/Bangkok");
 	
 	if(isset($_SESSION['admin'])){

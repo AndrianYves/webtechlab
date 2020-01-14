@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 13, 2020 at 06:21 PM
+-- Generation Time: Jan 14, 2020 at 05:03 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
   `deadline` varchar(255) NOT NULL,
   `status` enum('Active','Inactive') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `activities`
@@ -98,7 +98,18 @@ CREATE TABLE IF NOT EXISTS `activities` (
 INSERT INTO `activities` (`id`, `title`, `description`, `deadline`, `status`) VALUES
 (1, 'Basketball', 'Basketball', '2020-01-01', 'Inactive'),
 (2, 'chess', 'chess', '2020-01-31', 'Active'),
-(3, 'quizbee', 'quizbee', '2020-01-31', 'Active');
+(3, 'quizbee', 'quizbee', '2020-01-31', 'Active'),
+(4, 'sudoko', 'sudoko challenge for everyone', '2020-01-31', 'Active'),
+(5, 'math quiz', 'math quiz bee', '2020-01-01', 'Active'),
+(6, 'mr intrams', 'good looking', '2020-01-25', 'Active'),
+(7, 'tennis', 'tennis description', '2020-01-25', 'Active'),
+(8, 'taekwondo', 'asdad', '2020-01-18', 'Active'),
+(9, 'taekwondo', 'asdad', '2020-01-18', 'Active'),
+(10, 'taekwondo', 'asdad', '2020-01-18', 'Active'),
+(11, 'karate', 'sefs', '1994-03-23', 'Active'),
+(12, 'karate', 'sefs', '1994-03-23', 'Active'),
+(13, 'karate', 'sefs', '1994-03-23', 'Active'),
+(14, 'karate', 'sefs', '1994-03-23', 'Active');
 
 -- --------------------------------------------------------
 
@@ -113,8 +124,9 @@ CREATE TABLE IF NOT EXISTS `activityinvitation` (
   `choice` enum('Joining','Not Joining','Cancelled') DEFAULT NULL,
   `userID` int(255) NOT NULL,
   `status` enum('Accepted','Rejected') DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf32;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `activityID` (`activityID`,`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `activityinvitation`
@@ -124,9 +136,31 @@ INSERT INTO `activityinvitation` (`id`, `activityID`, `choice`, `userID`, `statu
 (1, 1, 'Joining', 1, 'Accepted'),
 (2, 1, NULL, 2, NULL),
 (3, 2, 'Joining', 1, 'Accepted'),
-(4, 2, 'Joining', 2, NULL),
+(4, 2, 'Joining', 2, 'Rejected'),
 (5, 3, 'Joining', 1, 'Rejected'),
-(6, 3, 'Not Joining', 2, NULL);
+(6, 3, 'Joining', 2, 'Accepted'),
+(7, 4, NULL, 1, NULL),
+(8, 4, 'Joining', 2, 'Accepted'),
+(9, 5, NULL, 1, NULL),
+(10, 5, NULL, 2, NULL),
+(11, 6, NULL, 1, NULL),
+(12, 6, 'Joining', 2, 'Accepted'),
+(13, 7, NULL, 1, NULL),
+(14, 7, 'Not Joining', 2, NULL),
+(15, 8, NULL, 1, NULL),
+(16, 8, NULL, 2, NULL),
+(17, 9, NULL, 1, NULL),
+(18, 9, NULL, 2, NULL),
+(19, 10, NULL, 1, NULL),
+(20, 10, NULL, 2, NULL),
+(21, 11, NULL, 1, NULL),
+(22, 11, NULL, 2, NULL),
+(23, 12, NULL, 1, NULL),
+(24, 12, NULL, 2, NULL),
+(25, 13, NULL, 1, NULL),
+(26, 13, NULL, 2, NULL),
+(27, 14, NULL, 1, NULL),
+(28, 14, NULL, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -179,6 +213,18 @@ CREATE TABLE IF NOT EXISTS `pollanswers` (
   UNIQUE KEY `questionID` (`questionID`,`userID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
+--
+-- Dumping data for table `pollanswers`
+--
+
+INSERT INTO `pollanswers` (`questionID`, `choiceID`, `userID`) VALUES
+(3, NULL, 1),
+(3, NULL, 2),
+(4, NULL, 1),
+(4, NULL, 2),
+(5, NULL, 1),
+(5, NULL, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -192,13 +238,18 @@ CREATE TABLE IF NOT EXISTS `pollchoices` (
   `questionID` int(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `choice` (`choice`,`questionID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `pollchoices`
 --
 
 INSERT INTO `pollchoices` (`id`, `choice`, `questionID`) VALUES
+(8, '120', 5),
+(2, '162', 3),
+(5, '162', 4),
+(4, '163', 3),
+(7, '163', 4),
 (1, '34', 2);
 
 -- --------------------------------------------------------
@@ -214,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `pollquestion` (
   `endofdate` varchar(255) DEFAULT NULL,
   `status` enum('Active','Inactive') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `pollquestion`
@@ -222,7 +273,10 @@ CREATE TABLE IF NOT EXISTS `pollquestion` (
 
 INSERT INTO `pollquestion` (`id`, `question`, `endofdate`, `status`) VALUES
 (1, 'age?', '2020-01-14', 'Active'),
-(2, '23', '2020-01-16', 'Active');
+(2, '23', '2020-01-16', 'Active'),
+(3, 'height?', '2020-01-22', 'Active'),
+(4, 'weight', '2020-01-23', 'Active'),
+(5, 'kilo', '2020-01-24', 'Active');
 
 -- --------------------------------------------------------
 

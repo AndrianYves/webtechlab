@@ -1,7 +1,6 @@
 <?php 
   include 'inc/session.php';
   include 'inc/header.php';
-  include 'inc/db.php';
  ?>
 <?php
 $link = "Activities";
@@ -115,7 +114,7 @@ if(isset($_POST['submit'])){
                     <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">New</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Rejected</a>
+                    <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">All</a>
                   </li>
                 </ul>
               </div>

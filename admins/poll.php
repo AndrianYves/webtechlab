@@ -6,6 +6,7 @@
 <?php
 $link = "Polls";
 if(isset($_POST['submit'])){ 
+  mysqli_autocommit($db, false);
   $error = false;
   $question = $_POST["question"];
   $date = $_POST["date"];
@@ -21,22 +22,30 @@ if(isset($_POST['submit'])){
 
     $sql1 = mysqli_query($db, "SELECT * from users where status = 'Accepted'");
     while ($rows = mysqli_fetch_array($sql1)) { 
-      $sql1 = "INSERT INTO pollanswers(questionID, userID) VALUES('$quesNumber', '".$rows['id']."')";   
-      mysqli_query($db, $sql1);
+      $sql3 = "INSERT INTO pollanswers(questionID, userID) VALUES('$quesNumber', '".$rows['id']."')";   
+      mysqli_query($db, $sql3);
     }
 
     for($i=0; $i<$number; $i++) {
-      $sql2 = "INSERT INTO pollchoices(choice, questionID) VALUES('".$_POST["choice"][$i]."', '$quesNumber')";
+      $sql2 = mysqli_query($db, "INSERT INTO pollchoices(choice, questionID) VALUES('".$_POST["choice"][$i]."', '$quesNumber')");
+
+      if (!$sql2) {
+       $error = true;
+       $_SESSION['error'][]= 'The same choices not allowed.';
+      }
+
     }
   } else {
     $error = true;
     $_SESSION['error'][] = '2 or more choices are required.';
   }
 
-  if(!$error){
-    mysqli_query($db, $sql2);
-    $_SESSION['success'] = 'Poll Created';
-  }
+    if (!$error) {
+      mysqli_commit($db);
+      $_SESSION['success'] = 'Poll Created';
+    } else {
+      mysqli_rollback($db);
+    }
 
 }
 ?>
